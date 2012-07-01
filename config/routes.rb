@@ -1,5 +1,4 @@
 RosalilaSite::Application.routes.draw do
-  
 	get "log_in" => "sessions#new", :as => "log_in"
 	get "log_out" => "sessions#destroy", :as => "log_out"
 
@@ -7,6 +6,7 @@ RosalilaSite::Application.routes.draw do
 	root :to => "users#new"
 	resources :users
 	resources :sessions
+	resources :password_resets
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
