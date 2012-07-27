@@ -1,0 +1,38 @@
+<div>
+<% @current_user = current_user %>
+<% if @current_user %>
+	<% if @current_user == @user %>
+		<h2>Editing Profile wuuujuuu</h2>
+		<%= form_tag uptade_user_url(:id => @user.id) do %>
+		  <% if @user.errors.any? %>
+		    <div class="error_messages">
+		      <h3>Uups something occured</h3>
+		      <ul>
+		        <% for message in @user.errors.full_messages %>
+		          <li><%= message %></li>
+		        <% end %>
+		      </ul>
+		    </div>
+	  	<% end %>
+			<p>Retype username or email if you don't want to edit them.</p>
+			<div class="field">
+				<%= label_tag :username %>
+				<%= text_field_tag :username, params[:username] %>
+			</div>
+			<div class="field">
+				<%= label_tag :bio %> <br/>
+				<%= text_area_tag :bio, params[:bio] %>
+			</div>
+			<div class="field">
+				<%= label_tag :email %>
+				<%= text_field_tag :email, params[:email] %> 
+			</div>
+			<div class="actions"><%= submit_tag "Update Profile" %></div>
+		<% end %>
+	<% else %>
+		<b>Ah, ahjaa, chiquitin, no puedes editar el perfil de alguien mas!</b>
+	<% end %>
+<% else %>
+	<b>No man, si no estas logueado no puedes editar >_<</b>
+<% end %>
+</div>

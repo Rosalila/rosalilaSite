@@ -8,13 +8,16 @@
 </head>
 <body>
 	<div id="user_nav">
-  	<% if current_user %>
-  	  Logged in as <%= current_user.email %>
-  	  <%= link_to "Log out", log_out_path %>
+		<% @current_user = current_user %>
+  	<% if @current_user %>
+  	  Logged in as <b><%= @current_user.username %></b>
+  	  <%= link_to "Log out", log_out_path %> |
+			<%= link_to "Profile", show_user_url(:username => @current_user.username) %> 
   	<% else %>
-  	  <%= link_to "Sign up", sign_up_path %> or 
-  	  <%= link_to "Log in", log_in_path %>
+  	  <%= link_to "Sign up", sign_up_url %> or 
+  	  <%= link_to "Log in", log_in_url %>
   	<% end %>
+		| <%= link_to "Home", root_url %>
 	</div>
 
   <% flash.each do |name, msg| %>

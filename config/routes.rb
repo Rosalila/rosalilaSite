@@ -1,13 +1,18 @@
 RosalilaSite::Application.routes.draw do
-	get "log_in" => "sessions#new", :as => "log_in"
-	get "log_out" => "sessions#destroy", :as => "log_out"
+	get "log_in" => "sessions#new", :as => :log_in
+	get "log_out" => "sessions#destroy", :as => :log_out
+  get "sign_up" => "users#new", :as => :sign_up
 
-  get "sign_up" => "users#new", :as => "sign_up"
 	root :to => "users#new"
+
 	resources :users
 	resources :sessions
 	resources :password_resets
 
+	post "uptade_profile/:id" => "users#update", :as => :uptade_user
+	match ":username" => "users#show", :as => :show_user
+	match ":username/edit_profile" => "users#edit", :as => :edit_user
+	
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
