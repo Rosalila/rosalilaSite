@@ -1,0 +1,14 @@
+<h1>Editing article</h1>
+
+<% @current_user = current_user %>
+<% if @current_user %>
+	<% if @current_user.id == @article.user_id %>
+		<%= render 'form' %>
+		<%= link_to 'Show', @article %> |
+		<%= link_to 'Back', root_url %>
+	<% else %>
+		<b>Ah, ahjaa, chiquitin, no puedes editar el articulo de alguien mas!</b>
+	<% end %>
+<% else %>
+	<b>No man, si no estas logueado no puedes editar >_<</b>
+<% end %>

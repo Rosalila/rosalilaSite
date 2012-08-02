@@ -32,17 +32,22 @@ class UsersController < ApplicationController
 
 	def update
 		@user = User.find(params[:id])
-		if @user
+		if @user && (params[:username] != @user.username || params[:email] != @user.email ||
+		params[:bio] != @user.bio || params[:avatar])
 			@user.username = params[:username]
 			@user.email = params[:email]
 			@user.bio = params[:bio]
+			if params[:avatar]
+				@user.avatar = params[:avatar] #En caso que cambie username||email||bio pero no avatar
+			end
+
 			if @user.save
 				redirect_to show_user_url(:username => @user.username), :notice => "Profile Updated"
 			else
-				render "edit"
+				render "edit", :notice => "Not able to update"
 			end
 		else
-			render "edit"
+			redirect_to show_user_url(:username => @user.username), :notice => "No changes to update"
 		end
 	end
 end

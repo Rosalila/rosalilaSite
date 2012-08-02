@@ -1,0 +1,18 @@
+<h1>Listing articles</h1>
+<% @current_user = current_user %>
+<% @articles.each do |article| %>
+	<div>
+    <p><b>Author: </b><%= article.user.username %></p>
+    <p><b>Title: </b><%= article.title %></p>
+    <span><%= link_to 'Show', article %></span>
+		<% if @current_user && article.user_id == @current_user.id %>
+	    <span>| <%= link_to 'Edit', edit_article_path(article) %></span>
+  	  <span>| <%= link_to 'Destroy', article, confirm: 'Are you sure?', method: :delete %></span>
+		<% end %>
+	</div>
+<% end %>
+
+<br/>
+<% if @current_user %>
+	<%= link_to 'New Article', new_article_path %>
+<% end %>

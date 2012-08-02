@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+	<% @author = @article.user %>
+  <b>Author:</b>
+	<% if @author.avatar != nil %>
+		<%= image_tag @author.avatar.url(:thumb) %>
+	<% end %>	
+  <%= link_to @author.username, show_user_path(:username => @author.username) %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @article.title %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%= @article.content %><br/>
+	<% if @article.image != nil %>
+		<%= image_tag @article.image.url %>
+	<% end %>
+</p>
+
+<%= link_to 'Back', root_url %>

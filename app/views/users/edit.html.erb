@@ -3,7 +3,7 @@
 <% if @current_user %>
 	<% if @current_user == @user %>
 		<h2>Editing Profile wuuujuuu</h2>
-		<%= form_tag uptade_user_url(:id => @user.id) do %>
+		<%= form_tag uptade_user_url(:id => @user.id), :multipart => true do %>
 		  <% if @user.errors.any? %>
 		    <div class="error_messages">
 		      <h3>Uups something occured</h3>
@@ -17,15 +17,19 @@
 			<p>Retype username or email if you don't want to edit them.</p>
 			<div class="field">
 				<%= label_tag :username %>
-				<%= text_field_tag :username, params[:username] %>
+				<%= text_field_tag :username, @user.username %>
 			</div>
 			<div class="field">
 				<%= label_tag :bio %> <br/>
-				<%= text_area_tag :bio, params[:bio] %>
+				<%= text_area_tag :bio, @user.bio %>
 			</div>
 			<div class="field">
 				<%= label_tag :email %>
-				<%= text_field_tag :email, params[:email] %> 
+				<%= text_field_tag :email, @user.email %> 
+			</div>
+			<div class="field">
+				<%= label_tag :avatar %>
+				<%= file_field_tag :avatar %> 
 			</div>
 			<div class="actions"><%= submit_tag "Update Profile" %></div>
 		<% end %>

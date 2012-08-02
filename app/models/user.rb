@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 	# Para los campos de la form en new.html.erb  
-	attr_accessible :username, :email, :password, :password_confirmation
+	attr_accessible :username, :email, :password, :password_confirmation, :avatar
 	attr_accessor :password
 	before_save :encrypt_password # encripta la pass enviada
   validates_confirmation_of :password
@@ -9,6 +9,11 @@ class User < ActiveRecord::Base
   validates_presence_of :email, :username
   validates_uniqueness_of :email, :username
 	before_create { generate_token(:auth_token) } # genera el token antes de crear el user
+
+  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }
+	validates_attachment :avatar, :size => { :in => 0..1.megabytes }
+	
+	has_many :articles, :dependent => :destroy
 
 	def encrypt_password
 		if password.present?
